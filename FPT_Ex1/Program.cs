@@ -28,6 +28,7 @@ namespace FPT_Ex1
                     {
                         case 0:
                             {
+
                                 bool inLoop = true;
                                 string name = "", address = "", gender = "";
                                 uint age = 0;
@@ -35,7 +36,7 @@ namespace FPT_Ex1
                                 bool rightName = false, rightAddress = false, rightGender = false, rightAge = false;
                                 while (inLoop)
                                 {
-                                    while(!(rightGender && rightName&&rightGender&&rightAge))
+                                    while(!(rightGender && rightName&&rightAddress&&rightAge))
                                     {
                                         Console.Clear();
                                         try
@@ -44,7 +45,7 @@ namespace FPT_Ex1
                                             {
                                                 Console.WriteLine("Enter name");
                                                 name = Console.ReadLine();
-                                                rightName = !string.IsNullOrEmpty(name);
+                                                rightName = !string.IsNullOrEmpty(name)&&name.All(c=>char.IsLetter(c)||char.IsWhiteSpace(c));
                                             }
                                             else
                                             {
@@ -53,8 +54,7 @@ namespace FPT_Ex1
                                             if (!rightAge)
                                             {
                                                 Console.WriteLine("Enter age");
-                                                age = uint.Parse(Console.ReadLine());
-                                                rightAge = age > 0;
+                                                rightAge = uint.TryParse(Console.ReadLine(), out age);
                                             }
                                             else
                                             {
@@ -74,6 +74,10 @@ namespace FPT_Ex1
                                                 gender = Console.ReadLine();
                                                 rightGender = Enum.TryParse(gender,out _gender);                                               
                                             }
+                                            else
+                                            {
+                                                Console.WriteLine($"Gender: {gender}");
+                                            }
                                         }
                                         catch (Exception e)
                                         {
@@ -81,7 +85,7 @@ namespace FPT_Ex1
                                         }
                                     }
                                     
-                                    Console.WriteLine("Please fill choose employee's type");
+                                    Console.WriteLine("Please choose employee's type");
                                     Console.WriteLine("""
                                     0: Worker
                                     1: Officer
@@ -101,6 +105,7 @@ namespace FPT_Ex1
                                                         {
                                                             EmployeeManager.Add(new Worker(name, age, address, _gender, lvl));
                                                             inLoop = false;
+                                                            Console.WriteLine("Success");
                                                         }
                                                         else
                                                         {
@@ -119,6 +124,8 @@ namespace FPT_Ex1
                                                     string job = Console.ReadLine();
                                                     EmployeeManager.Add(new Officer(name, age, address, _gender, job));
                                                     inLoop = false;
+                                                    Console.WriteLine("Success");
+
                                                     break;
                                                 }
                                             case 2:
@@ -127,6 +134,8 @@ namespace FPT_Ex1
                                                     string major = Console.ReadLine();
                                                     EmployeeManager.Add(new Engineer(name, age, address, _gender, major));
                                                     inLoop = false;
+                                                    Console.WriteLine("Success");
+
                                                     break;
                                                 }
                                             default:
@@ -137,7 +146,7 @@ namespace FPT_Ex1
                                     }
                                     else
                                     {
-                                        inLoop = false;
+                                        
                                         Console.WriteLine("Please try again");
                                     }
                                 }

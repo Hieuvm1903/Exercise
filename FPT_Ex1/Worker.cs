@@ -9,7 +9,7 @@ namespace FPT_Ex1
 {
     internal class Worker:Employee
     {
-        [Range(0,10)]
+        [Range(0,10,ErrorMessage = "Level must be between 0 and 10")]
         private int level;
         public int Level { get { return level; }
             set {
