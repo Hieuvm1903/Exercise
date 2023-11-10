@@ -1,5 +1,6 @@
-﻿using System.Runtime.CompilerServices;
-
+﻿using System;
+using System.Runtime.CompilerServices;
+using TestDll;
 namespace FPT_Ex1
 {
     internal class Program
@@ -72,7 +73,7 @@ namespace FPT_Ex1
                                             {
                                                 Console.WriteLine("Enter gender");
                                                 gender = Console.ReadLine();
-                                                rightGender = Enum.TryParse(gender,out _gender);                                               
+                                                rightGender = Enum.TryParse(gender,out _gender) && Enum.IsDefined(typeof(Gender), _gender);                                               
                                             }
                                             else
                                             {
@@ -154,6 +155,7 @@ namespace FPT_Ex1
                             }
                         case 1:
                             {
+                                Console.WriteLine("Enter some characters");
                                 string s = Console.ReadLine();
                                 EmployeeManager.Find(s);
                                 break;
@@ -187,7 +189,6 @@ namespace FPT_Ex1
         static void Retry()
         {
             Console.WriteLine("Please input a valid number");
-            Console.ReadKey();
         }
         static void OnInit()
         {
@@ -201,6 +202,7 @@ namespace FPT_Ex1
 
             Employee e7 = new Engineer("Arthur", 30, "Hanoi", Gender.Male, "Electric");
             Employee e8 = new Engineer("Henry", 28, "HCM city", Gender.Male, "IT");
+
             EmployeeManager.Add(e1);
             EmployeeManager.Add(e2);
             EmployeeManager.Add(e3);
