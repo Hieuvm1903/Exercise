@@ -271,7 +271,7 @@
             {
                 Console.WriteLine("Enter semester");
                 string name = Console.ReadLine();
-                LearningOutcome lo = student.LearningOutcomes?.Find(x => x.SemesterName == s);
+                LearningOutcome lo = student.LearningOutcomes?.Find(x => x.SemesterName == name);
                 if(lo != null)
                 {
                     Console.WriteLine($"Semester {lo.SemesterName} GPA:{lo.GPA}");
