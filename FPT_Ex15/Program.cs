@@ -22,7 +22,12 @@
                             case 0:
                                 {
                                     Console.WriteLine("0: Enter Faculty's name: ");
-                                    faculties.Add(new(Console.ReadLine()));
+                                    string s = Console.ReadLine();
+                                    if (faculties.Find(x => x.Name == s) == null)
+                                    {
+                                        Faculty faculty = new Faculty(s);
+                                        faculties.Add(faculty);
+                                    }
                                     break;
                                 }
                             case 1:

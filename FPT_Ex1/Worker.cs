@@ -11,11 +11,16 @@ namespace FPT_Ex1
     {
         [Range(0,10)]
         private int level;
-        public int Level { get { return level; }set { level = value; } }
+        public int Level { get { return level; }
+            set {
+                level = value; 
+            } }
         public Worker(string name, uint age, string address, Gender gt, int lvl ):base(name, age, address, gt)
         {
             type  = EmployeeType.Worker;
             level = lvl;
+            level = 15;
+            
         }
         public override string ToString()
         {

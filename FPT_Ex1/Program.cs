@@ -1,4 +1,6 @@
-﻿namespace FPT_Ex1
+﻿using System.Runtime.CompilerServices;
+
+namespace FPT_Ex1
 {
     internal class Program
     {
@@ -27,96 +29,110 @@
                         case 0:
                             {
                                 bool inLoop = true;
+                                string name = "", address = "", gender = "";
+                                uint age = 0;
+                                Gender _gender = Gender.Other;
+                                bool rightName = false, rightAddress = false, rightGender = false, rightAge = false;
                                 while (inLoop)
                                 {
-                                    Console.WriteLine("Please fill in employee's info");
+                                    while(!(rightGender && rightName&&rightGender&&rightAge))
+                                    {
+                                        Console.Clear();
+                                        try
+                                        {
+                                            if (!rightName)
+                                            {
+                                                Console.WriteLine("Enter name");
+                                                name = Console.ReadLine();
+                                                rightName = !string.IsNullOrEmpty(name);
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine($"Name: {name}");
+                                            }
+                                            if (!rightAge)
+                                            {
+                                                Console.WriteLine("Enter age");
+                                                age = uint.Parse(Console.ReadLine());
+                                                rightAge = age > 0;
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine($"Age:{age}");
+                                            }
+                                            if (!rightAddress)
+                                            {
+                                                Console.WriteLine("Enter address");
+                                                address = Console.ReadLine();
+                                                rightAddress = !string.IsNullOrEmpty(address);
+                                            }
+                                            else
+                                            { Console.WriteLine($"Address: {address}"); }
+                                            if (!rightGender)
+                                            {
+                                                Console.WriteLine("Enter gender");
+                                                gender = Console.ReadLine();
+                                                rightGender = Enum.TryParse(gender,out _gender);                                               
+                                            }
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            Console.WriteLine("Wrong format");
+                                        }
+                                    }
+                                    
+                                    Console.WriteLine("Please fill choose employee's type");
                                     Console.WriteLine("""
                                     0: Worker
                                     1: Officer
-                                    2: Engineer
-                                    3: Back
+                                    2: Engineer                                   
                                     """);
                                     rightType = int.TryParse(Console.ReadLine(), out j);
-                                    if (rightType && 0 <= j && j <= 3)
+                                    if (rightType && 0 <= j && j <= 2)
                                     {
                                         switch (j)
                                         {
                                             case 0:
                                                 {
-                                                    Console.WriteLine("Input Worker's info");
-                                                    Console.WriteLine("name, age, address, gender(Male, Female, Other), level ");
-
-                                                    try
+                                                    Console.WriteLine("Input Worker's Level");
+                                                    if (int.TryParse(Console.ReadLine(), out int lvl))
                                                     {
-                                                        string info = Console.ReadLine();
-                                                        string[] infos = info.Split(",");
-                                                        Gender gender = (Gender)Enum.Parse(typeof(Gender), infos[3]);
-                                                        Employee worker = new Worker(infos[0], uint.Parse(infos[1]), infos[2], gender, int.Parse(infos[4]));
-                                                        EmployeeManager.Add(worker);
-                                                        Console.WriteLine("Success");
+                                                        if (0 <= lvl && lvl <= 10)
+                                                        {
+                                                            EmployeeManager.Add(new Worker(name, age, address, _gender, lvl));
+                                                            inLoop = false;
+                                                        }
+                                                        else
+                                                        {
+                                                            Console.WriteLine("Invalid number");
+                                                        }
                                                     }
-                                                    catch
+                                                    else
                                                     {
-                                                        Console.WriteLine("Wrong format");
+                                                        Console.WriteLine("Invalid number");
                                                     }
-
                                                     break;
                                                 }
                                             case 1:
                                                 {
-                                                    Console.WriteLine("Input Officer's info");
-                                                    Console.WriteLine("name, age, address, gender(Male, Female, Other), job ");
-
-                                                    try
-                                                    {
-                                                        string info = Console.ReadLine();
-                                                        string[] infos = info.Split(",");
-                                                        Gender gender = (Gender)Enum.Parse(typeof(Gender), infos[3]);
-                                                        Employee officer = new Officer(infos[0], uint.Parse(infos[1]), infos[2], gender, infos[4]);
-                                                        EmployeeManager.Add(officer);
-                                                        Console.WriteLine("Success");
-
-                                                    }
-                                                    catch
-                                                    {
-                                                        Console.WriteLine("Wrong format");
-
-                                                    }
+                                                    Console.WriteLine("Input Officer's job");
+                                                    string job = Console.ReadLine();
+                                                    EmployeeManager.Add(new Officer(name, age, address, _gender, job));
+                                                    inLoop = false;
                                                     break;
                                                 }
                                             case 2:
                                                 {
-                                                    Console.WriteLine("Input Engineer's info");
-                                                    Console.WriteLine("name, age, address, gender(Male, Female, Other), major ");
-                                                    try
-                                                    {
-                                                        string info = Console.ReadLine();
-                                                        string[] infos = info.Split(",");
-                                                        Gender gender = (Gender)Enum.Parse(typeof(Gender), infos[3]);
-                                                        Employee engineer = new Engineer(infos[0], uint.Parse(infos[1]), infos[2], gender, infos[4]);
-                                                        EmployeeManager.Add(engineer);
-                                                        Console.WriteLine("Success");
-
-                                                    }
-                                                    catch
-                                                    {
-                                                        Console.WriteLine("Wrong format");
-
-                                                    }
-                                                    break;
-                                                }
-                                            case 3:
-                                                {
+                                                    Console.WriteLine("Input Engineer's major");
+                                                    string major = Console.ReadLine();
+                                                    EmployeeManager.Add(new Engineer(name, age, address, _gender, major));
                                                     inLoop = false;
-
                                                     break;
                                                 }
                                             default:
                                                 {
-                                                    
                                                     break;
                                                 }
-
                                         }
                                     }
                                     else
@@ -148,11 +164,8 @@
                                 Retry();
                                 break;
                             }
-
-
                     }
                     Console.ReadKey();
-
                 }
                 else
                 {

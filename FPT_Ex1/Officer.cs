@@ -17,7 +17,7 @@ namespace FPT_Ex1
         }
         public override string ToString()
         {
-            return "Officer "+base.ToString()+$"Job: {job}";
+            return "Officer "+base.ToString()+$" Job: {job}";
         }
     }
 }

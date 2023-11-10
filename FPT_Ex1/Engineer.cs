@@ -17,7 +17,7 @@ namespace FPT_Ex1
         }
         public override string ToString()
         {
-            return "Engineer " +base.ToString()+$"Major: {major}";
+            return "Engineer " +base.ToString()+$" Major: {major}";
         }
     }
 }
