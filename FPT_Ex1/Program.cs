@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using TestDll;
 namespace FPT_Ex1
 {
     internal class Program
@@ -79,10 +78,15 @@ namespace FPT_Ex1
                                             {
                                                 Console.WriteLine($"Gender: {gender}");
                                             }
+
                                         }
                                         catch (Exception e)
                                         {
                                             Console.WriteLine("Wrong format");
+                                        }
+                                        if(!(rightGender && rightName && rightAddress && rightAge))
+                                        {
+                                            Console.WriteLine("Missing informations");
                                         }
                                     }
                                     
