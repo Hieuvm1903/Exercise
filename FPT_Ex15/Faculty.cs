@@ -62,15 +62,13 @@ namespace FPT_Ex15
         }
         public void TotalStudentByYear()
         {
-            List<int> years = students?.Select(x=>x.Year).ToList();
-            Dictionary<int,int> yearAndNumber = new Dictionary<int,int>();
-            foreach(var year in years)
+            
+            var yearStudent = students.GroupBy(x => x.Year).Select(x => new { Year = x.Key,Total = x.Count() }) ;
+
+            
+            foreach(var pair in yearStudent)
             {
-                yearAndNumber[year] = students.FindAll(x=>x.Year == year).Count();
-            }
-            foreach(var pair in yearAndNumber)
-            {
-                Console.WriteLine($"{pair.Key}: {pair.Value}");
+                Console.WriteLine($"{pair.Year}: {pair.Total}");
             }
 
         }
